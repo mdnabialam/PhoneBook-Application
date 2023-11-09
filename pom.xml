@@ -15,7 +15,13 @@
 	<description>phoneBook</description>
 	<properties>
 		<java.version>17</java.version>
-	</properties>
+	
+	<sonar.host.url>http://localhost:9000/</sonar.host.url>
+	<sonar.login>admin</sonar.login>
+	<sonar.password>admin</sonar.password>
+  </properties>
+	
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -53,6 +59,15 @@
 			<artifactId>ojdbc8</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+<dependency>
+    <groupId>org.sonarsource.scanner.maven</groupId>
+    <artifactId>sonar-maven-plugin</artifactId>
+    <version>3.9.0.2155</version>
+</dependency>
+
+		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

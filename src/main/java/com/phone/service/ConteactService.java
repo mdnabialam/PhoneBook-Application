@@ -13,7 +13,7 @@ public interface ConteactService {
 	
 	Contact getContactById(Integer contactId);
 	
-	boolean updateContact(Contact c);
+	
 	
 	boolean deleteContact(Integer contactId);
 }

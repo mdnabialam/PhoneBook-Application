@@ -3,13 +3,12 @@ package com.phone.service.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.phone.Enitiy.ContactEnitiy;
 import com.phone.dto.Contact;
+import com.phone.exception.PhoneBookException;
 import com.phone.repository.ContactRepository;
 import com.phone.service.ConteactService;
 
@@ -21,16 +20,28 @@ public class ContactImpl implements ConteactService {
 	
 	@Override
 	public boolean saveContact(Contact c) {
-		ContactEnitiy  enitiy = /* null*/new ContactEnitiy();
-		/*
-		if (c.getContactId()!=null) {
-			Optional<ContactEnitiy> findById = contactRepository.findById(c.getContactId());
-			enitiy= findById.get();
+		
+		boolean isSave=false;
+		
+		try {
+			
+			/*
+			if (c.getContactId()!=null) {
+				Optional<ContactEnitiy> findById = contactRepository.findById(c.getContactId());
+				enitiy= findById.get();
+			}
+			*/
+			ContactEnitiy  enitiy = /* null*/new ContactEnitiy();
+			BeanUtils.copyProperties(c, enitiy);
+			ContactEnitiy savedEnitiy= contactRepository.save(enitiy);
+			if (savedEnitiy.getContactId() !=null) {
+				isSave= true;
+			}
+			
+		} catch (Exception e) {
+			throw new PhoneBookException("Save Failed");
 		}
-		*/
-		BeanUtils.copyProperties(c, enitiy);
-		ContactEnitiy savedEnitiy= contactRepository.save(enitiy);
-		return  savedEnitiy.getContactId()!=null;
+		return  isSave;
 	}
 
 	@Override
@@ -77,11 +88,7 @@ public class ContactImpl implements ConteactService {
 		return null;
 	}
 
-	@Override
-	public boolean updateContact(Contact c) {
-		
-		return false;
-	}
+	
 
 	@Override
 	public boolean deleteContact(Integer contactId) {
